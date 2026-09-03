@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chia sẻ file – Đại lý An Gia Phát</title>
+  <meta name="description" content="Trang chia sẻ tài liệu nội bộ dành cho đại lý An Gia Phát" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue-50: #eff6ff;
+      --blue-100: #dbeafe;
+      --blue-200: #bfdbfe;
+      --blue-300: #93c5fd;
+      --blue-400: #60a5fa;
+      --blue-500: #3b82f6;
+      --blue-600: #2563eb;
+      --blue-700: #1d4ed8;
+      --blue-800: #1e40af;
+      --blue-900: #1e3a8a;
+
+      --primary: var(--blue-600);
+      --primary-dark: var(--blue-700);
+      --primary-light: var(--blue-500);
+
+      --bg-page: var(--blue-50);
+      --bg-card: rgba(255, 255, 255, .92);
+      --border: var(--blue-200);
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+
+      --btn: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      --btn-shadow: 0 4px 24px rgba(29, 78, 216, .28);
+
+      --shadow-card: 0 8px 40px rgba(37, 99, 235, .13);
+      --shadow-glow: 0 0 40px rgba(37, 99, 235, .20);
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 15% 15%, rgba(37, 99, 235, .12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 85% 85%, rgba(96, 165, 250, .10) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 50% 50%, rgba(239, 246, 255, .90) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: .20;
+      animation: drift 18s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orb-1 {
+      width: 480px;
+      height: 480px;
+      background: #2563eb;
+      top: -140px;
+      left: -140px;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 360px;
+      height: 360px;
+      background: #60a5fa;
+      bottom: -100px;
+      right: -100px;
+      animation-delay: -6s;
+    }
+
+    .orb-3 {
+      width: 240px;
+      height: 240px;
+      background: #93c5fd;
+      top: 45%;
+      right: 8%;
+      animation-delay: -12s;
+    }
+
+    @keyframes drift {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(30px, -40px) scale(1.06);
+      }
+
+      66% {
+        transform: translate(-20px, 25px) scale(.94);
+      }
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 720px;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .header {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-ring {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 6px rgba(37, 99, 235, .18), var(--shadow-glow);
+      animation: pulse-ring 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-ring {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 6px rgba(37, 99, 235, .18), 0 0 40px rgba(37, 99, 235, .22);
+      }
+
+      50% {
+        box-shadow: 0 0 0 12px rgba(37, 99, 235, .10), 0 0 60px rgba(37, 99, 235, .38);
+      }
+    }
+
+    .logo-ring svg {
+      width: 36px;
+      height: 36px;
+      fill: #fff;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      background: rgba(26, 115, 232, .15);
+      border: 1px solid rgba(26, 115, 232, .35);
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--primary-light);
+    }
+
+    .header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #0f172a 20%, #2563eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header p {
+      font-size: .92rem;
+      color: var(--text-secondary);
+      max-width: 420px;
+      line-height: 1.6;
+    }
+
+    .card {
+      width: 100%;
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--blue-200);
+      border-radius: 20px;
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .tab-strip {
+      display: flex;
+      border-bottom: 1px solid var(--blue-200);
+      background: var(--blue-50);
+    }
+
+    .tab-item {
+      padding: 14px 24px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: default;
+      position: relative;
+      letter-spacing: .03em;
+    }
+
+    .tab-item.active {
+      color: var(--primary-light);
+    }
+
+    .tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .tab-dots {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      padding-right: 20px;
+      gap: 6px;
+    }
+
+    .tab-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .tab-dots span:nth-child(1) {
+      background: #ff5f57;
+    }
+
+    .tab-dots span:nth-child(2) {
+      background: #ffbd2e;
+    }
+
+    .tab-dots span:nth-child(3) {
+      background: #28ca41;
+    }
+
+    .card-body {
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .section-label {
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .file-btn {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+      padding: 18px 22px;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s cubic-bezier(.34, 1.56, .64, 1),
+        box-shadow .25s ease;
+    }
+
+    .file-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, .06);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .file-btn:hover::before {
+      opacity: 1;
+    }
+
+    .file-btn:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .4);
+    }
+
+    .file-btn:active {
+      transform: translateY(0) scale(.99);
+    }
+
+    .file-btn {
+      background: var(--btn);
+      box-shadow: var(--btn-shadow);
+    }
+
+    .btn-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      backdrop-filter: blur(4px);
+    }
+
+    .btn-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .btn-content {
+      flex: 1;
+      text-align: left;
+    }
+
+    .btn-content strong {
+      display: block;
+      font-size: .95rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .btn-content span {
+      font-size: .78rem;
+      color: rgba(255, 255, 255, .7);
+      margin-top: 3px;
+      display: block;
+    }
+
+    .btn-arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, .15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s, transform .2s;
+    }
+
+    .file-btn:hover .btn-arrow {
+      background: rgba(255, 255, 255, .25);
+      transform: translateX(3px);
+    }
+
+    .btn-arrow svg {
+      width: 16px;
+      height: 16px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--blue-200), transparent);
+      margin: 4px 0;
+    }
+
+    .footer {
+      font-size: .78rem;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .footer strong {
+      color: var(--text-primary);
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(2.5);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card-body {
+        padding: 24px 18px;
+      }
+
+      .tab-item {
+        padding: 12px 14px;
+        font-size: .75rem;
+      }
+
+      .btn-content strong {
+        font-size: .88rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <main class="wrapper" role="main">
+
+    <header class="header">
+      <h1>Tài liệu chia sẽ An Gia Phát</h1>
+    </header>
+
+    <section class="card" aria-label="Danh sách tài liệu">
+
+      <div class="tab-strip" role="tablist">
+        <div class="tab-item active" role="tab" aria-selected="true">📁 Tài liệu</div>
+        <div class="tab-dots" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p class="section-label">Chọn tài liệu để mở</p>
+
+        <!-- ===== NÚT 1 – Đến hạn phải đóng: icon lịch + dấu cảnh báo ===== -->
+        <a id="btn-d08-ts" href="https://drive.google.com/drive/folders/1U4hDhY-Vk2U7kZtuJgL2qi453BmWoXXW"
+          target="_blank" rel="noopener noreferrer" class="file-btn"
+          title="Danh sách người tham gia đến hạn phải đóng (D08-TS)">
+          <div class="btn-icon" aria-hidden="true">
+            <!-- Calendar with exclamation: đến hạn, nhắc đóng tiền -->
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+              <line x1="12" y1="14" x2="12" y2="17" />
+              <circle cx="12" cy="19" r=".5" fill="white" />
+            </svg>
+          </div>
+          <div class="btn-content">
+            <strong>Danh sách người tham gia đến hạn phải đóng</strong>
+            <span>D08-TS · Nhấn để xem tài liệu</span>
+          </div>
+          <div class="btn-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+        </a>
+
+        <!-- ===== NÚT 2 – NTG trùng, chờ thoái thu: icon hoàn tiền/vòng lặp ===== -->
+        <a id="btn-ntg-trung" href="https://docs.google.com/spreadsheets/d/1Ve69ifWoFORGyoWJ9RuXpqBhT2KB0sZLiSVDnffOjPo"
+          target="_blank" rel="noopener noreferrer" class="file-btn"
+          title="Danh sách NTG trùng quá trình chờ thoái thu">
+          <div class="btn-icon" aria-hidden="true">
+            <!-- Refresh-CW với dấu đồng tiền: thoái thu / hoàn trả -->
+            <svg viewBox="0 0 24 24">
+              <polyline points="1 4 1 10 7 10" />
+              <polyline points="23 20 23 14 17 14" />
+              <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4-4.64 4.36A9 9 0 0 1 3.51 15" />
+            </svg>
+          </div>
+          <div class="btn-content">
+            <strong>Danh sách NTG trùng quá trình chờ thoái thu</strong>
+            <span>Danh sách không phát sinh tăng - chờ thoái thu</span>
+          </div>
+          <div class="btn-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+        </a>
+
+        <a id="btn-bi0062o" href="https://drive.google.com/drive/folders/1IfFr0jvC5ixSRE3TM5ScP-4WGytX4noz"
+          target="_blank" rel="noopener noreferrer" class="file-btn" title="Hồ sơ BI0062O đã xử lý">
+          <div class="btn-icon" aria-hidden="true">
+            <!-- Folder with check: hồ sơ đã hoàn tất xử lý -->
+            <svg viewBox="0 0 24 24">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+              <polyline points="9 12 11 14 15 10" />
+            </svg>
+          </div>
+          <div class="btn-content">
+            <strong>Hồ sơ BI0062O đã xử lý</strong>
+            <span>Tổng hợp hồ sơ đã xử lý của BI0062O</span>
+          </div>
+          <div class="btn-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+        </a>
+        <!-- ===== NÚT 4 – Cấp thẻ BHYT: icon thẻ tín dụng / ID card ===== -->
+        <a id="btn-bhyt" href="https://drive.google.com/drive/u/1/folders/1qKG2nYp8kWaZIc0achQmxumacvcPf3Ac"
+          target="_blank" rel="noopener noreferrer" class="file-btn" title="Danh sách cấp thẻ BHYT">
+          <div class="btn-icon" aria-hidden="true">
+            <!-- Credit card: thẻ bảo hiểm y tế -->
+            <svg viewBox="0 0 24 24">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+              <line x1="1" y1="10" x2="23" y2="10" />
+              <line x1="5" y1="16" x2="9" y2="16" />
+              <line x1="12" y1="16" x2="14" y2="16" />
+            </svg>
+          </div>
+          <div class="btn-content">
+            <strong>Danh sách cấp thẻ BHYT</strong>
+            <span>Mẫu D10a-TS</span>
+          </div>
+          <div class="btn-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      </div>
+
+    </section>
+
+    <footer class="footer">
+      <strong>An Gia Phát</strong> · Lưu hành nội bộ<br />
+      Cập nhật lần cuối: <time id="last-update"></time>
+    </footer>
+
+  </main>
+
+  <script>
+    // Hiển thị ngày cập nhật tự động
+    const el = document.getElementById('last-update');
+    const now = new Date();
+    el.textContent = now.toLocaleDateString('vi-VN', {
+      day: '2-digit', month: '2-digit', year: 'numeric'
+    });
+
+    // Ripple effect khi bấm nút
+    document.querySelectorAll('.file-btn').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        const rect = this.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.cssText = `
+          position:absolute;
+          border-radius:50%;
+          background:rgba(255,255,255,.3);
+          width:${size}px;
+          height:${size}px;
+          left:${e.clientX - rect.left - size / 2}px;
+          top:${e.clientY - rect.top - size / 2}px;
+          transform:scale(0);
+          animation:ripple .55s ease-out;
+          pointer-events:none;
+        `;
+        this.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
+  </script>
+
+</body>
+
+</html>
